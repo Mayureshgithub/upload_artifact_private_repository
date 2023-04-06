@@ -9,64 +9,44 @@ on:
     
 jobs:
   build:
-    runs-on: ubuntu-latest
-    env:
-      PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-      PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    
+    runs-on: ubuntu-latest    
     steps:
     
     - name: Checkout repository
       uses: actions/checkout@v2
     
-#     - name: Cache Depenedencies
-#       uses: actions/setup-java@v2
-#       with:
-#         java-version: '11'
-#         distribution: 'adopt'
-#         cache: maven
-
-    - name: Build artifact
-      run: |
-          mvn package
-          mkdir artifacts
-          cp target/my-app.jar artifacts/
-      
-    
-#     - name: Build with maven
-#       run: |
-#         mkdir artifacts_dir      
-#         mvn -B clean package -s .maven/settings.xml
-#         cp target/artifacts.jar artifacts_dir/
-    
-#     - name: Stamp artifact file name with commit hash
-#       run: |
-#         artifactName1=$(ls target/*.jar | head -1)
-#         commitHash=$(git rev-parse --short "$GITHUB_SHA")
-#         artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
-#         mv $artifactName1 $artifactName2
-    
-#     - name: Upload artifact 
-#       uses: actions/upload-artifact@master
-#       with:
-#         name: artifacts
-#         path: artifacts_dir/artifacts.jar
-  
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
+    - name: Cache Depenedencies
+      uses: actions/setup-java@v2
       with:
-        name: my-app
-        path: artifacts/my-app.jar
-
+        java-version: '11'
+        distribution: 'adopt'
+        cache: maven    
+    
+    - name: Build with maven
+      run: |      
+        mvn -B clean package -s .maven/settings.xml
+        
+    
+    - name: Stamp artifact file name with commit hash
+      run: |
+        artifactName1=$(ls target/*.jar | head -1)
+        commitHash=$(git rev-parse --short "$GITHUB_SHA")
+        artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
+        mv $artifactName1 $artifactName2
+    
+    - name: Upload artifact 
+      uses: actions/upload-artifact@master
+      with:
+        name: artifacts
+        path: target/*.jar
           
-#    - name: trigger the automated test in another repo
-#      uses: peter-evans/repository-dispatch@v2
-#      with:
-#         token: ${{ secrets.PAT }}
-#         repository: SAURABH-BIRAMWAR/Test_private_repo 
-#         event-type: my-event2
-#         client-payload: '{"github": ${{ toJson(github) }}}'
+    - name: trigger the automated test in another repo
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.PAT }}
+        repository: SAURABH-BIRAMWAR/Test_private_repo 
+        event-type: my-event2
+        client-payload: '{"github": ${{ toJson(github) }}}'
     
 #     - name: Slack Notification
 #       uses: act10ns/slack@v1
