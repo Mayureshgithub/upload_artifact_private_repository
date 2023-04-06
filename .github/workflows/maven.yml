@@ -39,6 +39,8 @@ jobs:
       with:
         name: artifacts
         path: target/*.jar
+      env:
+        PAT: ${{ secrets.PAT }}
           
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
