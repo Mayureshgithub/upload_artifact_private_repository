@@ -46,13 +46,13 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: artifacts
-        run: |
-          # Check if the artifact exists
-          if [ -f /home/runner/work/upload_artifact_private_repository/upload_artifact_private_repository/target/ ]; then
-            echo "Artifact exists"
-          else
-            echo "Artifact does not exist"
-          fi
+#         run: |
+#           # Check if the artifact exists
+#           if [ -f /home/runner/work/upload_artifact_private_repository/upload_artifact_private_repository/target/ ]; then
+#             echo "Artifact exists"
+#           else
+#             echo "Artifact does not exist"
+#           fi
           
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
