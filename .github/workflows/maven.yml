@@ -48,7 +48,7 @@ jobs:
         name: artifacts
         run: |
           # Check if the artifact exists
-          if [ -f path/to/artifact ]; then
+          if [ -f target/*.jar ]; then
             echo "Artifact exists"
           else
             echo "Artifact does not exist"
