@@ -28,7 +28,10 @@ jobs:
         cache: maven
     
     - name: Build with maven
-      run: mvn -B clean package -s .maven/settings.xml
+      run: |
+        mkdir artifacts      
+        mvn -B clean package -s .maven/settings.xml
+        cp target/my-app.jar artifacts/
     
     - name: Stamp artifact file name with commit hash
       run: |
@@ -40,16 +43,16 @@ jobs:
     - name: Upload artifact 
       uses: actions/upload-artifact@master
       with:
-          name: artifacts
-          path: target/*.jar
+        name: my-app
+        path: artifacts/my-app.jar
           
-    - name: trigger the automated test in another repo
-      uses: peter-evans/repository-dispatch@v2
-      with:
-         token: ${{ secrets.PAT }}
-         repository: SAURABH-BIRAMWAR/Test_private_repo 
-         event-type: my-event2
-         client-payload: '{"github": ${{ toJson(github) }}}'
+#    - name: trigger the automated test in another repo
+#      uses: peter-evans/repository-dispatch@v2
+#      with:
+#         token: ${{ secrets.PAT }}
+#         repository: SAURABH-BIRAMWAR/Test_private_repo 
+#         event-type: my-event2
+#         client-payload: '{"github": ${{ toJson(github) }}}'
     
 #     - name: Slack Notification
 #       uses: act10ns/slack@v1
