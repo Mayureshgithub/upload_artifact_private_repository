@@ -48,7 +48,7 @@ jobs:
         name: artifacts
         run: |
           # Check if the artifact exists
-          if [ -f target/*.jar ]; then
+          if [ -f /home/runner/work/upload_artifact_private_repository/upload_artifact_private_repository ]; then
             echo "Artifact exists"
           else
             echo "Artifact does not exist"
