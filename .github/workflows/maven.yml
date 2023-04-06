@@ -41,6 +41,18 @@ jobs:
         path: target/*.jar
       env:
         PAT: ${{ secrets.PAT }}
+        
+    - name: Check Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+        run: |
+          # Check if the artifact exists
+          if [ -f path/to/artifact ]; then
+            echo "Artifact exists"
+          else
+            echo "Artifact does not exist"
+          fi
           
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
