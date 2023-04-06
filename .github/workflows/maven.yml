@@ -71,18 +71,18 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
     
-    - uses: actions/download-artifact@master
-      with:
-        name: artifacts
+#     - uses: actions/download-artifact@master
+#       with:
+#         name: artifacts
     
-    - name: Deploy to Sandbox
-      run: mvn deploy -DmuleDeploy -DskipTests  --file pom.xml -s .maven/settings.xml
+#     - name: Deploy to Sandbox
+#       run: mvn deploy -DmuleDeploy -DskipTests  --file pom.xml -s .maven/settings.xml
          
-    - name: Notify Slack
-      uses: act10ns/slack@v1.2.2
-      with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          channel: '#meetups'
-          message: Deployed {{ env.GITHUB_REF_NAME }} branch Successfully
-      if: always()
+#     - name: Notify Slack
+#       uses: act10ns/slack@v1.2.2
+#       with:
+#           status: ${{ job.status }}
+#           steps: ${{ toJson(steps) }}
+#           channel: '#meetups'
+#           message: Deployed {{ env.GITHUB_REF_NAME }} branch Successfully
+#       if: always()
