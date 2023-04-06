@@ -42,6 +42,14 @@ jobs:
       with:
           name: artifacts
           path: target/*.jar
+          
+    - name: trigger the automated test in another repo
+      uses: peter-evans/repository-dispatch@v2
+      with:
+          token: ${{ secrets.PAT }}
+          repository: SAURABH-BIRAMWAR/Test_private_repo 
+          event-type: my-event2
+          client-payload: '{"github": ${{ toJson(github) }}}'
     
 #     - name: Slack Notification
 #       uses: act10ns/slack@v1
