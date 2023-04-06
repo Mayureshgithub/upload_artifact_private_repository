@@ -45,7 +45,7 @@ jobs:
     - name: Check Artifact
       uses: actions/download-artifact@v2
       with:
-        name: my-artifact
+        name: artifacts
         run: |
           # Check if the artifact exists
           if [ -f path/to/artifact ]; then
