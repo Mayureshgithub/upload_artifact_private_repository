@@ -43,13 +43,13 @@ jobs:
           name: artifacts
           path: target/*.jar
           
-    - name: trigger the automated test in another repo
-      uses: peter-evans/repository-dispatch@v2
-      with:
-          token: ${{ secrets.PAT }}
-          repository: SAURABH-BIRAMWAR/Test_private_repo 
-          event-type: my-event2
-          client-payload: '{"github": ${{ toJson(github) }}}'
+#    - name: trigger the automated test in another repo
+#      uses: peter-evans/repository-dispatch@v2
+#      with:
+#          token: ${{ secrets.PAT }}
+#          repository: SAURABH-BIRAMWAR/Test_private_repo 
+#          event-type: my-event2
+#          client-payload: '{"github": ${{ toJson(github) }}}'
     
 #     - name: Slack Notification
 #       uses: act10ns/slack@v1
@@ -59,29 +59,29 @@ jobs:
 #         message: Build {{ env.GITHUB_REF_NAME }} branch Successfully
 #       if: always()  
       
-#   deploy:
-#     needs: build
-#     runs-on: ubuntu-latest
-#     env:
-#       PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-#       PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-#       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      env:
+        PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
+        PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-#     steps:    
+      steps:    
     
-#     - name: Checkout repository
-#       uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
     
-#     - uses: actions/cache@v1
-#       with:
-#         path: ~/.m2/repository
-#         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#         restore-keys: |
-#           ${{ runner.os }}-maven-
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
     
-#     - uses: actions/download-artifact@master
-#       with:
-#         name: artifacts
+      - uses: actions/download-artifact@master
+        with:
+          name: artifacts
     
 #     - name: Deploy to Sandbox
 #       run: mvn deploy -DmuleDeploy -DskipTests  --file pom.xml -s .maven/settings.xml
