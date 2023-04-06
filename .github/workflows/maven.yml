@@ -26,25 +26,39 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-    
-    - name: Build with maven
+
+    - name: Build artifact
       run: |
-        mkdir artifacts_dir      
-        mvn -B clean package -s .maven/settings.xml
-        cp target/artifacts.jar artifacts_dir/
+          mvn package
+          mkdir artifacts
+          cp target/my-app.jar artifacts/
+      
     
-    - name: Stamp artifact file name with commit hash
-      run: |
-        artifactName1=$(ls target/*.jar | head -1)
-        commitHash=$(git rev-parse --short "$GITHUB_SHA")
-        artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
-        mv $artifactName1 $artifactName2
+#     - name: Build with maven
+#       run: |
+#         mkdir artifacts_dir      
+#         mvn -B clean package -s .maven/settings.xml
+#         cp target/artifacts.jar artifacts_dir/
     
-    - name: Upload artifact 
-      uses: actions/upload-artifact@master
+#     - name: Stamp artifact file name with commit hash
+#       run: |
+#         artifactName1=$(ls target/*.jar | head -1)
+#         commitHash=$(git rev-parse --short "$GITHUB_SHA")
+#         artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
+#         mv $artifactName1 $artifactName2
+    
+#     - name: Upload artifact 
+#       uses: actions/upload-artifact@master
+#       with:
+#         name: artifacts
+#         path: artifacts_dir/artifacts.jar
+  
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-        name: artifacts
-        path: artifacts_dir/artifacts.jar
+        name: my-app
+        path: artifacts/my-app.jar
+
           
 #    - name: trigger the automated test in another repo
 #      uses: peter-evans/repository-dispatch@v2
