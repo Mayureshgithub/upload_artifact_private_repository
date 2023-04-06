@@ -29,9 +29,9 @@ jobs:
     
     - name: Build with maven
       run: |
-        mkdir artifacts      
+        mkdir artifacts_dir      
         mvn -B clean package -s .maven/settings.xml
-        cp target/my-app.jar artifacts/
+        cp target/artifacts.jar artifacts_dir/
     
     - name: Stamp artifact file name with commit hash
       run: |
@@ -43,8 +43,8 @@ jobs:
     - name: Upload artifact 
       uses: actions/upload-artifact@master
       with:
-        name: my-app
-        path: artifacts/my-app.jar
+        name: artifacts
+        path: artifacts_dir/artifacts.jar
           
 #    - name: trigger the automated test in another repo
 #      uses: peter-evans/repository-dispatch@v2
