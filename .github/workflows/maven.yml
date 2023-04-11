@@ -38,18 +38,18 @@ jobs:
         artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
         mv $artifactName1 $artifactName2
     
-    - name: Upload artifact 
-      uses: actions/upload-artifact@v2
-      with:
-        name: artifacts
-        path: target/*.jar
-      env:
-        PAT: ${{ secrets.PAT }}
+#     - name: Upload artifact 
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: artifacts
+#         path: target/*.jar
+#       env:
+#         PAT: ${{ secrets.PAT }}
         
-    - name: Check Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: artifacts
+#     - name: Check Artifact
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: artifacts
           
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
