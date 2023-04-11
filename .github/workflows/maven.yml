@@ -52,6 +52,12 @@ jobs:
           
           echo $LATEST_ARTIFACT_ID
     
+          echo ${{ steps.Build with maven.outputs.artifact_id }}
+          
+  #echo ${{ steps.Stamp artifact file name with commit hash.outputs.artifact_id }}
+          
+
+    
 #     - name: Upload artifact 
 #       uses: actions/upload-artifact@v2
 #       with:
