@@ -42,14 +42,15 @@ jobs:
       run: |  
         pwd
         ls -lart
+        ls -lart ./target/
         
-#     - name: Upload artifact 
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: artifacts
-#         path: target/*.jar
-#       env:
-#         PAT: ${{ secrets.PAT_TOKEN_TEST }}    
+    - name: Upload artifact 
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: target/*.jar
+      env:
+        PAT: ${{ secrets.PAT_TOKEN_TEST }}    
         
     - name: Latest Artifact
       run: |
