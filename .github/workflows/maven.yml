@@ -107,29 +107,18 @@ jobs:
                https://api.github.com/repos/Mayureshgithub/upload_artifact_private_repository/actions/artifacts/${LATEST_ARTIFACT_ID}/zip \
                --output artifact.zip
                
-    - name: Unzip the downloaded artifact
-      run: |           
-          unzip -q *.zip       
+#     - name: Unzip the downloaded artifact
+#       run: |           
+#           unzip -q *.zip       
           
-          # Delete the zip artifact
-          rm *.zip
+#           # Delete the zip artifact
+#           rm *.zip
                
     - name: List Files
       run: |  
             pwd
-            ls -lart
-            mkdir build && cp *.jar ./build  
-            ls -lart ./build/
-
-    
-#     - name: Upload artifact 
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: artifacts
-#         path: target/*.jar
-#       env:
-#         PAT: ${{ secrets.PAT_TOKEN_TEST }}
-        
+            ls -lart 
+            ls -lart ./target/        
  
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
