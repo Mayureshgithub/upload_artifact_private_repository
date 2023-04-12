@@ -67,6 +67,16 @@ jobs:
         script: |
           const artifactId = context.workflowRunId;
           console.log(`Latest Artifact ID: ${artifactId}`);
+          
+          
+    - name: List artifact           
+      run: |
+          
+          curl -L \
+               -H "Accept: application/vnd.github+json" \
+               -H "Authorization: Bearer ${{ secrets.PAT_TOKEN_TEST }}"\
+               -H "X-GitHub-Api-Version: 2022-11-28" \
+                https://api.github.com/repos/Mayureshgithub/upload_artifact_private_repository/actions/artifacts
         
     - name: Latest Artifact
       run: |
@@ -83,9 +93,27 @@ jobs:
           echo $LATEST_ARTIFACT_ID
     
           echo ${{ steps.build.outputs.artifact_id }}
+            
+          # Download the latest artifact
+          curl -L \
+               -H "Accept: application/vnd.github+json" \
+               -H "Authorization: Bearer ${{ secrets.PAT_TOKEN_TEST }}" \
+               -H "X-GitHub-Api-Version: 2022-11-28" \
+               https://api.github.com/repos/Mayureshgithub/upload_artifact_private_repository/actions/artifacts/${LATEST_ARTIFACT_ID}/zip \
+               --output artifact.zip
+               
+          # Unzip the downloaded artifact
+          unzip -q *.zip       
           
-  #echo ${{ steps.Stamp artifact file name with commit hash.outputs.artifact_id }}
-          
+          # Delete the zip artifact
+          rm *.zip
+               
+    - name: List Files
+      run: |  
+            pwd
+            ls -lart
+            mkdir build && cp *.jar ./build  
+            ls -lart ./build/
 
     
 #     - name: Upload artifact 
