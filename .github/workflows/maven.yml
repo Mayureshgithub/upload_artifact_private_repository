@@ -84,7 +84,17 @@ jobs:
 #       uses: actions/download-artifact@v2
 #       with:
 #         name: artifacts
-          
+
+
+    - name: Get latest artifact and runtime ID
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const runId = context.runId;
+          const artifactId = context.workflowRunId;
+          console.log(`Latest Artifact ID: ${artifactId}`);
+          console.log(`Runtime ID: ${runId}`);
+
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
       with:
