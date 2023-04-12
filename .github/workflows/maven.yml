@@ -58,21 +58,21 @@ jobs:
 #         name: artifacts
 #         path: .
         
-    - name: Get latest artifact and runtime ID
-      uses: actions/github-script@v4
-      with:
-        script: |
-          const runId = context.runId;
-          const artifactId = context.workflowRunId;
-          console.log(`Latest Artifact ID: ${artifacts[0].id}`);
-          console.log(`Runtime ID: ${runId}`);
+#     - name: Get latest artifact and runtime ID
+#       uses: actions/github-script@v4
+#       with:
+#         script: |
+#           const runId = context.runId;
+#           const artifactId = context.workflowRunId;
+#           console.log(`Latest Artifact ID: ${artifacts[0].id}`);
+#           console.log(`Runtime ID: ${runId}`);
           
-    - name: Get latest artifact ID
-      uses: actions/github-script@v4
-      with:
-        script: |
-          const artifactId = context.workflowRunId;
-          console.log(`Latest Artifact ID: ${artifacts[0].id}`);
+#     - name: Get latest artifact ID
+#       uses: actions/github-script@v4
+#       with:
+#         script: |
+#           const artifactId = context.workflowRunId;
+#           console.log(`Latest Artifact ID: ${artifacts[0].id}`);
           
 #     - name: New Get latest artifact ID
 #       uses: actions/github-script@v4
