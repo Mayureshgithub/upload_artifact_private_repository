@@ -52,6 +52,12 @@ jobs:
       env:
         PAT: ${{ secrets.PAT_TOKEN_TEST }}
         
+    - name: Check Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: artifacts
+        path: .
+        
     - name: Get latest artifact and runtime ID
       uses: actions/github-script@v4
       with:
@@ -91,9 +97,7 @@ jobs:
           LATEST_ARTIFACT_ID=$(echo "$ARTIFACTS" | jq -r '.artifacts[0].id')
           
           echo $LATEST_ARTIFACT_ID
-    
-          echo ${{ steps.build.outputs.artifact_id }}
-            
+               
           # Download the latest artifact
           curl -L \
                -H "Accept: application/vnd.github+json" \
@@ -124,13 +128,7 @@ jobs:
 #       env:
 #         PAT: ${{ secrets.PAT_TOKEN_TEST }}
         
-    - name: Check Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: artifacts
-        path: .
-
-
+ 
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
       with:
