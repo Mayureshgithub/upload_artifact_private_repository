@@ -89,10 +89,10 @@ jobs:
 #       env:
 #         PAT: ${{ secrets.PAT_TOKEN_TEST }}
         
-#     - name: Check Artifact
-#       uses: actions/download-artifact@v2
-#       with:
-#         name: artifacts
+    - name: Check Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: artifacts
 
 
     - name: trigger the automated test in another repo
