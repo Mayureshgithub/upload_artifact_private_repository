@@ -74,6 +74,19 @@ jobs:
           const artifactId = context.workflowRunId;
           console.log(`Latest Artifact ID: ${artifactId}`);
           
+    - name: New Get latest artifact ID
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const runId = context.runId;
+          const artifactId = await github.actions.listWorkflowRunArtifacts({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            run_id: runId
+          });
+          console.log(`Latest Artifact ID: ${artifactId.data.artifacts[0].id}`);
+
+          
           
     - name: List artifact           
       run: |
