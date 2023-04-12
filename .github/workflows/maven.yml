@@ -60,6 +60,13 @@ jobs:
           const artifactId = context.workflowRunId;
           console.log(`Latest Artifact ID: ${artifactId}`);
           console.log(`Runtime ID: ${runId}`);
+          
+    - name: Get latest artifact ID
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const artifactId = context.workflowRunId;
+          console.log(`Latest Artifact ID: ${artifactId}`);
         
     - name: Latest Artifact
       run: |
@@ -93,6 +100,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: artifacts
+        path: .
 
 
     - name: trigger the automated test in another repo
