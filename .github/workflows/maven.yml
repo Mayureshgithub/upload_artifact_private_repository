@@ -35,8 +35,12 @@ jobs:
       run: |
         artifactName1=$(ls target/*.jar | head -1)
         commitHash=$(git rev-parse --short "$GITHUB_SHA")
-        artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
+        artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash-${{ github.run_number }}.jar/g")
         mv $artifactName1 $artifactName2
+        
+    - name: Print Run Number
+      run: |
+        echo "The run number is ${{ github.run_number }}"
     
     - name: List Files
       run: |  
@@ -85,6 +89,16 @@ jobs:
 #             run_id: runId
 #           });
 #           console.log(`Latest Artifact ID: ${artifactId.data.artifacts[0].id}`);
+
+    - name: New List artifact           
+      run: |
+         curl -L \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer  ${{ secrets.PAT_TOKEN_TEST }}"\
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+               https://api.github.com/repos/Mayureshgithub/upload_artifact_private_repository/actions/runs/RUN_ID/artifacts
+      
+    
 
           
           
