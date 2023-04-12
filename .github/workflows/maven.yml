@@ -52,11 +52,11 @@ jobs:
       env:
         PAT: ${{ secrets.PAT_TOKEN_TEST }}
         
-    - name: Check Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: artifacts
-        path: .
+#     - name: Check Artifact
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: artifacts
+#         path: .
         
     - name: Get latest artifact and runtime ID
       uses: actions/github-script@v4
@@ -97,16 +97,18 @@ jobs:
           LATEST_ARTIFACT_ID=$(echo "$ARTIFACTS" | jq -r '.artifacts[0].id')
           
           echo $LATEST_ARTIFACT_ID
-               
-          # Download the latest artifact
-          curl -L \
+          
+    - name: Download the latest artifact
+      run: |   
+           curl -L \
                -H "Accept: application/vnd.github+json" \
                -H "Authorization: Bearer ${{ secrets.PAT_TOKEN_TEST }}" \
                -H "X-GitHub-Api-Version: 2022-11-28" \
                https://api.github.com/repos/Mayureshgithub/upload_artifact_private_repository/actions/artifacts/${LATEST_ARTIFACT_ID}/zip \
                --output artifact.zip
                
-          # Unzip the downloaded artifact
+    - name: Unzip the downloaded artifact
+      run: |           
           unzip -q *.zip       
           
           # Delete the zip artifact
