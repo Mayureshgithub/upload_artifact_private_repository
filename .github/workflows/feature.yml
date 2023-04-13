@@ -23,34 +23,37 @@ jobs:
            java-version: '11'
            distribution: 'adopt'
            cache: maven
-     - name: Build with maven
-      run: |      
-        mvn -B clean package -s .maven/settings.xml
+      - name: Build with maven
+        run: |      
+         mvn -B clean package -s .maven/settings.xml
         
     
-    - name: Stamp artifact file name with commit hash
-      run: |
-        artifactName1=$(ls target/*.jar | head -1)
-        commitHash=$(git rev-parse --short "$GITHUB_SHA")
-        artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash-${{ github.run_number }}.jar/g")
-        mv $artifactName1 $artifactName2
-        
-    - name: Print Run Number
-      run: |
-        echo "The run number is ${{ github.run_number }}"    
-          
-      - name: Build
+      - name: Stamp artifact file name with commit hash
         run: |
-          # build commands here
+          artifactName1=$(ls target/*.jar | head -1)
+          commitHash=$(git rev-parse --short "$GITHUB_SHA")
+          artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash-${{ github.run_number }}.jar/g")
+          mv $artifactName1 $artifactName2
+        
+      - name: Print Run Number
+        run: |
+          echo "The run number is ${{ github.run_number }}"    
+      - name: List Files
+        run: |  
+         pwd
+         ls -lart
+         ls -lart ./target/    
+    
       - name: Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: build-artifacts
-          path: build/
+          path: target/*.jar
+          
       - name: Trigger Test Workflow
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.TEST_REPO_ACCESS_TOKEN }}
-          repository: test-repository
+          token: ${{ secrets.PAT_TOKEN_TEST }}
+          repository: Test_private_repo
           event-type: test-workflow
           client-payload: '{"build_id": "${{ github.run_id }}"}'
