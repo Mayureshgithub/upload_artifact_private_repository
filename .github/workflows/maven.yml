@@ -152,7 +152,7 @@ jobs:
       with:
         token: ${{ secrets.PAT_TOKEN_TEST }}
         repository: Mayureshgithub/Test_private_repo 
-        event-type: event-name
+        event-type: event-name1
         client-payload: '{"branch_name": "${{ github.ref }}", "commit_sha": "${{ github.sha }}", "author_name": "${{ github.actor }}"}'
 
 #         client-payload: '{"github": ${{ toJson(github) }}}'     
