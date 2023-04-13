@@ -153,7 +153,9 @@ jobs:
         token: ${{ secrets.PAT_TOKEN_TEST }}
         repository: Mayureshgithub/Test_private_repo 
         event-type: new_branch
-        client-payload: '{"github": ${{ toJson(github) }}}'     
+        client-payload: '{"branch_name": "${{ github.ref }}", "commit_sha": "${{ github.sha }}", "author_name": "${{ github.actor }}"}'
+
+#         client-payload: '{"github": ${{ toJson(github) }}}'     
     
 #     - name: Slack Notification
 #       uses: act10ns/slack@v1
