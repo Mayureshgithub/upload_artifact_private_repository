@@ -150,7 +150,7 @@ jobs:
             ls -lart ./target/              
        
     - name: Trigger Repository Dispatch Event
-      uses: peter-evans/rest-api-caller@v1
+      uses: peter-evans/rest-api-caller@v2.1.1
       with:
         method: POST
         url: https://api.github.com/repos/Mayureshgithub/Test_private_repo/dispatches
