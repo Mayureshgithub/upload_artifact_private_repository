@@ -1,11 +1,11 @@
 # This workflow will build a MuleSoft project and deploy to CloudHub
 
-name: Build and Deploy to Sandbox
+name: Build and Deploy to Sandbox_new
 
 on: 
   push:
     branches: [ new_branch ]
-  workflow_dispatch:
+  
     
 jobs:
   build:
