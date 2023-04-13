@@ -14,6 +14,8 @@ jobs:
     
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        ref: new_branch
       
     - name: print branch name
       run: |
@@ -148,12 +150,13 @@ jobs:
             ls -lart ./target/              
         
     - name: trigger the automated test in another repo
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.PAT_TOKEN_TEST }}
         repository: Mayureshgithub/Test_private_repo 
-        event-type: event-name1
-        client-payload: '{"branch_name": "${{ github.ref }}", "commit_sha": "${{ github.sha }}", "author_name": "${{ github.actor }}"}'
+        event-type: trigger-workflow
+#         client-payload: '{"branch_name": "${{ github.ref }}", "commit_sha": "${{ github.sha }}", "author_name": "${{ github.actor }}"}'
+        client-payload: '{"workflow_file": ".github/workflows/blank.yml", "ref": "new_branch"}'
 
 #         client-payload: '{"github": ${{ toJson(github) }}}'     
     
