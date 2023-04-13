@@ -148,28 +148,28 @@ jobs:
             pwd
             ls -lart 
             ls -lart ./target/              
-       
-    - name: Trigger Repository Dispatch Event
-      uses: peter-evans/rest-api-caller@v2.1.1
+    
+    - name: Trigger Second Workflow
+      uses: actions/github-script@v4
       with:
-        method: POST
-        url: https://api.github.com/repos/Mayureshgithub/Test_private_repo/dispatches
-        headers: |
-          {
-           "Accept": "application/vnd.github.everest-preview+json",
-           "Authorization": "Bearer ${{ secrets.PAT_TOKEN_TEST }}",
-           "Content-Type": "application/json"
-          }
-        body: |
-          {
-            "event_type": "trigger-workflow",
-            "client_payload": {
-              "workflow_file": ".github/workflows/blank.yml",
-              "ref": "new_branch2"
-            }
-          }
+          github-token: ${{ secrets.PAT_TOKEN_TEST }}
+          script: |
+            const octokit = require('@octokit/rest')();
+            const repo = 'Mayureshgithub/Test_private_repo';
+            const owner = 'Mayureshgithub';
+            const ref = 'new_branch2';
+            const event_type = 'trigger-workflow';
+            const payload = {
+              workflow_file: '.github/workflows/blank.yml'
+            };
+            octokit.authenticate({
+              type: 'token',
+              token: process.env.GITHUB_TOKEN
+            });
+            octokit.repos.createDispatchEvent({ owner, repo, event_type, client_payload: payload, ref });
+  
  
-            
+          
         
 #     - name: trigger the automated test in another repo
 #       uses: peter-evans/repository-dispatch@v1
