@@ -156,7 +156,7 @@ jobs:
         repository: Mayureshgithub/Test_private_repo 
         event-type: trigger-workflow
 #         client-payload: '{"branch_name": "${{ github.ref }}", "commit_sha": "${{ github.sha }}", "author_name": "${{ github.actor }}"}'
-        client-payload: '{"workflow_file": ".github/workflows/blank.yml", "ref": "new_branch2"}'
+        client-payload: '{"workflow_file": ".github/workflows/blank.yml", "ref": "main"}'
 
 #         client-payload: '{"github": ${{ toJson(github) }}}'     
     
