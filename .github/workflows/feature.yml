@@ -54,6 +54,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.PAT_TOKEN_TEST }}
-          repository: Test_private_repo
+          repository: Mayureshgithub/Test_private_repo
           event-type: test-workflow
           client-payload: '{"build_id": "${{ github.run_id }}"}'
