@@ -152,7 +152,7 @@ jobs:
       with:
         token: ${{ secrets.PAT_TOKEN_TEST }}
         repository: Mayureshgithub/Test_private_repo 
-        event-type: my-event
+        event-type: event-name_my
         client-payload: '{"github": ${{ toJson(github) }}}'     
     
 #     - name: Slack Notification
