@@ -4,7 +4,7 @@ name: Build and Deploy to Sandbox
 
 on: 
   push:
-    branches: [ main ]
+    branches: [ new_branch ]
   workflow_dispatch:
     
 jobs:
@@ -152,7 +152,7 @@ jobs:
       with:
         token: ${{ secrets.PAT_TOKEN_TEST }}
         repository: Mayureshgithub/Test_private_repo 
-        event-type: my-event
+        event-type: new_branch
         client-payload: '{"github": ${{ toJson(github) }}}'     
     
 #     - name: Slack Notification
