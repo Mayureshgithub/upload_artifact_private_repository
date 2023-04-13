@@ -154,7 +154,7 @@ jobs:
           sleep 20s
             
             
-    - name: Trigger Second Workflow
+    - name: Trigger Second Workflow.
       uses: convictional/trigger-workflow-and-wait@v1.3.0
       with:
           owner: Mayureshgithub
