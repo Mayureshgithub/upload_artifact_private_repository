@@ -56,4 +56,5 @@ jobs:
           token: ${{ secrets.PAT_TOKEN_TEST }}
           repository: Mayureshgithub/Test_private_repo
           event-type: test-workflow
+          ref: test
           client-payload: '{"build_id": "${{ github.run_id }}"}'
