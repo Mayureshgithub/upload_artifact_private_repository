@@ -147,13 +147,13 @@ jobs:
             ls -lart 
             ls -lart ./target/              
         
-#     - name: trigger the automated test in another repo
-#       uses: peter-evans/repository-dispatch@v2
-#       with:
-#         token: ${{ secrets.PAT_TOKEN_TEST }}
-#         repository: Mayureshgithub/Test_private_repo 
-#         event-type: event-name_my
-#         client-payload: '{"github": ${{ toJson(github) }}}'
+    - name: trigger the automated test in another repo
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.PAT_TOKEN_TEST }}
+        repository: Mayureshgithub/Test_private_repo 
+        event-type: event-name_my
+        client-payload: '{"github": ${{ toJson(github) }}}'
       
     - name: Trigger Second Workflow.
       uses: convictional/trigger-workflow-and-wait@v1.3.0
