@@ -149,37 +149,15 @@ jobs:
             ls -lart 
             ls -lart ./target/     
             
-#     - name: Install octokit/rest package
-#       run: npm install @octokit/rest
-    
-#     - name: Trigger Second Workflow
-#       uses: actions/github-script@v4
-#       with:
-#           github-token: ${{ secrets.PAT_TOKEN_TEST }}
-#           script: |
-#             const octokit = require('@octokit/rest')();
-#             const repo = 'Mayureshgithub/Test_private_repo';
-#             const owner = 'Mayureshgithub';
-#             const ref = 'new_branch2';
-#             const event_type = 'trigger-workflow';
-#             const payload = {
-#               workflow_file: '.github/workflows/blank.yml'
-#             };
-#             octokit.authenticate({
-#               type: 'token',
-#               token: process.env.GITHUB_TOKEN
-#             });
-#             octokit.repos.createDispatchEvent({ owner, repo, event_type, client_payload: payload, ref });
             
-    - name: trigger the automated test in another repo
-      uses: peter-evans/repository-dispatch@v1
+    - name: Trigger Second Workflow
+      uses: convictional/trigger-workflow-and-wait@v1.3.0
       with:
-        token: ${{ secrets.PAT_TOKEN_TEST }}
-        repository: Mayureshgithub/Test_private_repo 
-        event-type: trigger-workflow
-#         client-payload: '{"branch_name": "${{ github.ref }}", "commit_sha": "${{ github.sha }}", "author_name": "${{ github.actor }}"}'
-        client-payload: '{"workflow_file": ".github/workflows/blank.yml", "ref": "new_branch2"}'      
-                    
+          owner: Mayureshgithub
+          repo: Test_private_repo
+          github_token: ${{ secrets.PAT_TOKEN_TEST }}
+          workflow_file_name: blank.yml
+          ref: new_branch2
         
 #     - name: trigger the automated test in another repo
 #       uses: peter-evans/repository-dispatch@v1
