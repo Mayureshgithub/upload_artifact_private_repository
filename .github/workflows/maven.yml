@@ -53,8 +53,8 @@ jobs:
       with:
         name: artifacts
         path: target/*.jar
-      env:
-        PAT: ${{ secrets.PAT_TOKEN_TEST }}
+#       env:
+#         PAT: ${{ secrets.PAT_TOKEN_TEST }}
         
 #     - name: Check Artifact
 #       uses: actions/download-artifact@v2
@@ -150,7 +150,7 @@ jobs:
     - name: trigger the automated test in another repo
       uses: peter-evans/repository-dispatch@v2
       with:
-        token: ${{ secrets.PAT_TOKEN_TEST }}
+       #token: ${{ secrets.PAT_TOKEN_TEST }}
         repository: Mayureshgithub/Test_private_repo 
         event-type: my-event
         client-payload: '{"github": ${{ toJson(github) }}}'
