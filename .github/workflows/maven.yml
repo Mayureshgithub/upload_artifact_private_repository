@@ -116,14 +116,7 @@ jobs:
           labels: |
             release
           base: "with_new_trigger_2"
-          head: "with_new_trigger_2"
           draft: false
-          branch-suffix: timestamp
-          reviewers: |
-            peter-evans
-          assignees: |
-            peter-evans
-          milestone: 1.0
-          edit: true        
+         
     
         
