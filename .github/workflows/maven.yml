@@ -147,7 +147,10 @@ jobs:
       run: |  
             pwd
             ls -lart 
-            ls -lart ./target/              
+            ls -lart ./target/     
+            
+    - name: Install octokit/rest package
+      run: npm install @octokit/rest
     
     - name: Trigger Second Workflow
       uses: actions/github-script@v4
