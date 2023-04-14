@@ -50,11 +50,22 @@ jobs:
           name: build-artifacts
           path: target/*.jar
           
-      - name: Trigger Test Workflow
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.PAT_TOKEN_TEST }}
-          repository: Mayureshgithub/Test_private_repo
-          event-type: test-workflow
-          ref: test
-          client-payload: '{"build_id": "${{ github.run_id }}"}'
+      - name: Trigger Second Workflow
+        run: |
+          curl \
+            -H "Authorization: Bearer ${{ secrets.PAT_TOKEN_TEST }}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Content-Type: application/json" \
+            --data '{"event_type": "trigger-workflow_event", "client_payload": { "ref": "test" } }' \
+            "https://api.github.com/repos/Mayureshgithub/Test_private_repo/dispatches"
+    
+          
+          
+#       - name: Trigger Test Workflow
+#         uses: peter-evans/repository-dispatch@v1
+#         with:
+#           token: ${{ secrets.PAT_TOKEN_TEST }}
+#           repository: Mayureshgithub/Test_private_repo
+#           event-type: test-workflow
+#           ref: test
+#           client-payload: '{"build_id": "${{ github.run_id }}"}'
