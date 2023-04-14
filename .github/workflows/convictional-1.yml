@@ -1,4 +1,4 @@
-name: Test on Test branch from Feature branch
+name: Test on Test branch from Feature branch.
 
 on:
   push:
