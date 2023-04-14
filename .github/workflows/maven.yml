@@ -155,14 +155,14 @@ jobs:
         event-type: event-name_my
         client-payload: '{"github": ${{ toJson(github) }}}'
       
-    - name: Trigger Second Workflow.
-      uses: convictional/trigger-workflow-and-wait@v1.3.0
-      with:
-          owner: Mayureshgithub
-          repo: Test_private_repo
-          github_token: ${{ secrets.PAT_TOKEN_TEST }}
-          workflow_file_name: blank.yml
-          ref: main
+#     - name: Trigger Second Workflow.
+#       uses: convictional/trigger-workflow-and-wait@v1.3.0
+#       with:
+#           owner: Mayureshgithub
+#           repo: Test_private_repo
+#           github_token: ${{ secrets.PAT_TOKEN_TEST }}
+#           workflow_file_name: blank.yml
+#           ref: main
 
 
 
