@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: Feature
+          ref: convictional-1
       - name: print branch name
         run: |
           echo "The branch name is ${{ github.ref }}"
