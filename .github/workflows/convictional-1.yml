@@ -3,7 +3,7 @@ name: Test on Test branch from Feature branch
 on:
   push:
     branches:
-      - Feature
+      - convictional-1
 
 jobs:
   build-and-deploy:
