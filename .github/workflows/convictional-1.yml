@@ -49,6 +49,14 @@ jobs:
         with:
           name: build-artifacts
           path: target/*.jar
+        env:
+          PAT_TOKEN_TEST: ${{ secrets.PAT_TOKEN_TEST }}
+          
+      - name: List Files
+        run: |  
+          pwd
+          ls -lart
+          ls -lart ./target/  
           
 #       - name: Create release
 #         id: create_release
