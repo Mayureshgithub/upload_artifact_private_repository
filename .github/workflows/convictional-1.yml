@@ -50,15 +50,14 @@ jobs:
           name: build-artifacts
           path: target/*.jar
           
-      - name: Trigger Second Workflow
-        run: |
-          curl \
-            -H "Authorization: Bearer ${{ secrets.PAT_TOKEN_TEST }}" \
-            -H "Accept: application/vnd.github.everest-preview+json" \
-            -H "Content-Type: application/json" \
-            --data '{"event_type": "trigger-workflow_event", "client_payload": { "ref": "test" } }' \
-            "https://api.github.com/repos/Mayureshgithub/Test_private_repo/dispatches"
-    
+      - name: Trigger Second Workflow.
+        uses: convictional/trigger-workflow-and-wait@v1.3.0
+        with:
+          owner: Mayureshgithub
+          repo: Test_private_repo
+          github_token: ${{ secrets.PAT_TOKEN_TEST }}
+          workflow_file_name: convictional-2.yml
+          ref: convictional-2
           
           
 #       - name: Trigger Test Workflow
