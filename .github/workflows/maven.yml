@@ -1,6 +1,6 @@
 # This workflow will build a Mule__Soft projct and deploy .to_Cloud
 
-name: Build and Deploy to Sandbox_new
+name: Build and Deploy to Sandbox_new.
 
 on: 
   push:
